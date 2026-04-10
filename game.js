@@ -165,6 +165,7 @@ function checkRoomTransition() {
   if (next !== null) {
     roomIndex = next;
     player.x = nx; player.y = ny;
+    SFX.playRoomTransition();
     // Respawn mom in new room at a far corner
     mom = makeMom();
     mom.speed = MOM_BASE_SPEED + survivedSeconds * 0.012;
@@ -387,6 +388,7 @@ function gameLoop(ts) {
   if (keys.right) dx += PLAYER_SPEED * dt;
 
   if (dx !== 0 && dy !== 0) { dx *= 0.707; dy *= 0.707; }
+  if (dx !== 0 || dy !== 0) SFX.playFootstep();
 
   const np = clampToRoom(player, player.x + dx, player.y + dy);
   player.x = np.x; player.y = np.y;
@@ -406,6 +408,7 @@ function gameLoop(ts) {
     const dist = Math.hypot(player.x - mom.x, player.y - mom.y);
     if (dist < player.r + mom.r) {
       lives--;
+      SFX.playCaught();
       if (lives <= 0) {
         startMinigame();
         return;
@@ -471,6 +474,7 @@ function startMinigame() {
       if (!mgActive) return;
       b.classList.add('pop');
       bubblesPopped++;
+      SFX.playBubblePop();
       document.getElementById('bubble-count').textContent = bubblesPopped;
       setTimeout(() => b.remove(), 200);
     });
@@ -503,6 +507,8 @@ function startMinigame() {
 // =============================================
 function endGame() {
   state = 'gameover';
+  SFX.stopBgMusic();
+  SFX.playGameOver();
   showScreen('screen-gameover');
 
   const msgs = [
@@ -534,6 +540,9 @@ function startGame() {
   mom = makeMom();
   showScreen('screen-game');
   canvas.style.display = 'block';
+  SFX.stopBgMusic();
+  SFX.playStart();
+  setTimeout(() => SFX.startBgMusic(), 500);
 
   clearInterval(survivalTimer);
   survivalTimer = setInterval(() => {
