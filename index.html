@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>The Great Shower Escape</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  <div id="ui">
+    <div id="screen-title" class="screen active">
+      <h1>🦉 The Great<br>Shower Escape</h1>
+      <p class="subtitle">Starring Amelia the Owl</p>
+      <p class="flavor">Mom says it's shower time...<br>but Amelia has other plans!</p>
+      <button id="btn-start" class="btn">Let's Go!</button>
+    </div>
+
+    <div id="screen-game" class="screen">
+      <div id="hud">
+        <span id="hud-time">⏱ 0s</span>
+        <span id="hud-room"></span>
+        <span id="hud-lives">🦉🦉🦉</span>
+      </div>
+      <div id="dpad">
+        <button class="dpad-btn" id="btn-up">▲</button>
+        <div class="dpad-row">
+          <button class="dpad-btn" id="btn-left">◀</button>
+          <div class="dpad-center"></div>
+          <button class="dpad-btn" id="btn-right">▶</button>
+        </div>
+        <button class="dpad-btn" id="btn-down">▼</button>
+      </div>
+    </div>
+
+    <div id="screen-minigame" class="screen">
+      <h2>Oh no! Mom caught you! 🚿</h2>
+      <p>Tap the soap bubbles before they pop!</p>
+      <div id="bubble-area"></div>
+      <div id="minigame-score">Bubbles: <span id="bubble-count">0</span></div>
+      <div id="minigame-timer">Time: <span id="mg-timer">10</span>s</div>
+    </div>
+
+    <div id="screen-gameover" class="screen">
+      <h2 id="go-title">Time for a shower!</h2>
+      <p id="go-message"></p>
+      <p id="go-score"></p>
+      <button id="btn-retry" class="btn">Run Again!</button>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
